@@ -3,5 +3,12 @@
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
-  ]
+  ],
+  "compilerOptions": {
+    // Vite resolves the @ alias; TypeScript only needs the path mapping.
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "ignoreDeprecations": "6.0"
 }
