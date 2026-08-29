@@ -13,6 +13,8 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
+import { toast } from "sonner";
+
 // Type matching our backend User model
 interface Employee {
   _id: string;
@@ -54,6 +56,10 @@ export default function AdminTeamPage() {
       setServerError(null);
       // Hitting the secure registration endpoint we built in the backend
       await api.post("/auth/register", data);
+
+      toast.success('Employee registered successfully,', {
+        description: `${data.name} can now access the account`
+      })
       
       form.reset();
       setIsDialogOpen(false);
@@ -80,7 +86,7 @@ export default function AdminTeamPage() {
               </Button>
             }
           />
-          <DialogContent className="sm:max-w-106.25">
+          <DialogContent className="sm:max-w-lg">
             <DialogHeader>
               <DialogTitle>Provision New Account</DialogTitle>
               <DialogDescription>
@@ -120,12 +126,12 @@ export default function AdminTeamPage() {
                       <FormLabel>System Role</FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
-                          <SelectTrigger>
+                          <SelectTrigger className="bg-white text-slate-900 border-slate-300 dark:bg-slate-950 dark:text-white dark:border-slate-700">
                             <SelectValue placeholder="Select a role" />
                           </SelectTrigger>
                         </FormControl>
-                        <SelectContent>
-                          <SelectItem value="sales">Sales Representative</SelectItem>
+                        <SelectContent className="bg-white text-white border-slate-200 shadow-lg dark:bg-slate-950 darK:text-white dark:border-slate-800">
+                          <SelectItem value="sales">Staff</SelectItem>
                           <SelectItem value="manager">Manager</SelectItem>
                           <SelectItem value="admin">Administrator</SelectItem>
                         </SelectContent>

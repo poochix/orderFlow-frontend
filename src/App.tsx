@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { api } from "@/lib/axios";
 import { setCredentials, setLoading } from "@/features/auth/authSlice";
 
+import { Toaster } from "sonner";
+
 import LoginPage from "@/features/auth/LoginPage";
 import ProtectedRoute from "@/features/auth/ProtectedRoute";
 import DashboardLayout from "@/layouts/DashboardLayout";
@@ -27,6 +29,7 @@ export default function App() {
   }, [dispatch]);
 
   return (
+      <>
     <Router>
       <Routes>
         {/* Public Route */}
@@ -53,5 +56,7 @@ export default function App() {
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>
+      <Toaster/>
+      </>
   );
 }
