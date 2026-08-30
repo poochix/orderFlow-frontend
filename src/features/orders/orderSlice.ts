@@ -5,6 +5,7 @@ export interface Order {
     orderNumber: string;
     customer: {name:string, companyName: string};
     productName: string;
+    quantity: number,
     status: 'Pending' |'In Progress' | 'Completed';
     createdAt: string;
 }
