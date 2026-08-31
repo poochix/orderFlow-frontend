@@ -10,6 +10,8 @@ import LoginPage from "@/features/auth/LoginPage";
 import ProtectedRoute from "@/features/auth/ProtectedRoute";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import AdminTeamPage from "./features/admin/AdminTeamPage";
+import OrdersPage from "./features/orders/OrdersPage";
+import AIIngestionPage from "./features/orders/AiIngestionPage"
 
 export default function App() {
   const dispatch = useDispatch();
@@ -35,7 +37,7 @@ export default function App() {
         {/* Public Route */}
         <Route path="/login" element={<LoginPage />} />
         
-        <Route path="/team" element={<AdminTeamPage />} />
+       
 
         {/* Protected Routes Wrapper */}
         <Route element={<ProtectedRoute />}>
@@ -44,9 +46,13 @@ export default function App() {
             
             {/* The individual pages rendered inside the Layout's <Outlet /> */}
             <Route path="/dashboard" element={<div>Analytics Dashboard (Coming Soon)</div>} />
-            <Route path="/orders" element={<div>Shared Order Pool (Coming Soon)</div>} />
-            <Route path="/ai-parse" element={<div>AI Ingestion Interface (Coming Soon)</div>} />
+            <Route path="/orders" element={<OrdersPage/>} />
+            <Route path="/ai-parse" element={<AIIngestionPage/>}/>
             
+            {/**Protect routes */}
+             <Route path="/team" element={<AdminTeamPage />} />
+       
+
             {/* Default redirect for authenticated users */}
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
           </Route>
