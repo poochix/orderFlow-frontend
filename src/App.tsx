@@ -11,7 +11,8 @@ import ProtectedRoute from "@/features/auth/ProtectedRoute";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import AdminTeamPage from "./features/admin/AdminTeamPage";
 import OrdersPage from "./features/orders/OrdersPage";
-import AIIngestionPage from "./features/orders/AiIngestionPage"
+import AIIngestionPage from "./features/orders/AIIngestionPage"
+import DashboardPage from "./features/analytics/DashboardPage";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -45,7 +46,7 @@ export default function App() {
           <Route element={<DashboardLayout />}>
             
             {/* The individual pages rendered inside the Layout's <Outlet /> */}
-            <Route path="/dashboard" element={<div>Analytics Dashboard (Coming Soon)</div>} />
+            <Route path="/dashboard" element={<DashboardPage/>} />
             <Route path="/orders" element={<OrdersPage/>} />
             <Route path="/ai-parse" element={<AIIngestionPage/>}/>
             

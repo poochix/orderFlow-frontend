@@ -20,7 +20,7 @@ export const useSocket = ()=>{
         })
 
         //join the socket room we defined in the backend
-        socket.emit('JoinRomm', 'admin_dashboard');
+        socket.emit('join_dashboard', 'admin_dashboard');
 
         socket.on('orderStatusUpdate', (data:{orderId: string, status: 'Pending'| 'In Progress' | 'Completed'})=>{
             dispatch(updateOrderStatus({orderId: data.orderId, newStatus: data.status}));
