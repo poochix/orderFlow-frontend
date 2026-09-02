@@ -10,6 +10,7 @@ import LoginPage from "@/features/auth/LoginPage";
 import ProtectedRoute from "@/features/auth/ProtectedRoute";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import AdminTeamPage from "./features/admin/AdminTeamPage";
+import CustomersPage from "./features/admin/CustomersPage";
 import OrdersPage from "./features/orders/OrdersPage";
 import AIIngestionPage from "./features/orders/AIIngestionPage"
 import DashboardPage from "./features/analytics/DashboardPage";
@@ -49,6 +50,8 @@ export default function App() {
             <Route path="/dashboard" element={<DashboardPage/>} />
             <Route path="/orders" element={<OrdersPage/>} />
             <Route path="/ai-parse" element={<AIIngestionPage/>}/>
+            {/* Register the Customers destination so navigation stays inside the protected dashboard. */}
+            <Route path="/customers" element={<CustomersPage />} />
             
             {/**Protect routes */}
              <Route path="/team" element={<AdminTeamPage />} />

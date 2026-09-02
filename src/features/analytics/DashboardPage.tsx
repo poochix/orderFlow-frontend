@@ -5,7 +5,7 @@ import { setAnalytics, setLoading } from "./analyticSlice";
 import { api } from "@/lib/axios";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { DollarSign, Package, AlertCircle, TrendingUp, Loader2 } from "lucide-react";
+import {  Package, AlertCircle, TrendingUp, Loader2 , IndianRupee} from "lucide-react";
 
 
 
@@ -42,9 +42,9 @@ export default function DashboardPage(){
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 text-white">
       <div>
-        <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Analytics Overview</h2>
+        <h2 className="text-2xl font-bold tracking-tight text-white dark:text-white">Analytics Overview</h2>
         <p className="text-sm text-slate-500">Live operational metrics and revenue tracking.</p>
       </div>
 
@@ -52,7 +52,7 @@ export default function DashboardPage(){
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
-            <DollarSign className="h-4 w-4 text-emerald-500" />
+            <IndianRupee className="h-4 w-4 text-emerald-500" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">${data.totalRevenue?.toLocaleString() ?? 0}</div>
