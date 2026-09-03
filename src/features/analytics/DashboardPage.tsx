@@ -55,7 +55,7 @@ export default function DashboardPage(){
             <IndianRupee className="h-4 w-4 text-emerald-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">${data.totalRevenue?.toLocaleString() ?? 0}</div>
+            <div className="text-2xl font-bold">₹ {data.totalRevenue?.toLocaleString() ?? 0}</div>
           </CardContent>
         </Card>
         <Card>
@@ -73,7 +73,7 @@ export default function DashboardPage(){
             <TrendingUp className="h-4 w-4 text-blue-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">${data.avgOrderValue?.toLocaleString() ?? 0}</div>
+            <div className="text-2xl font-bold">₹ {data.avgOrderValue?.toLocaleString() ?? 0}</div>
           </CardContent>
         </Card>
         <Card>

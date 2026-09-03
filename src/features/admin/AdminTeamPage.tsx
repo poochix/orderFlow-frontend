@@ -38,7 +38,7 @@ export default function AdminTeamPage() {
   const fetchTeam = async () => {
     try {
       // Assuming you have a GET /api/users endpoint on the backend for admins
-      const response = await api.get("/users");
+      const response = await api.get("/user/get");
       setEmployees(response.data.data);
     } catch (error) {
       console.error("Failed to fetch team", error);
@@ -70,10 +70,10 @@ export default function AdminTeamPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 text-white">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Team Management</h2>
+          <h2 className="text-2xl font-bold tracking-tight text-white dark:text-white">Team Management</h2>
           <p className="text-sm text-slate-500">Provision and manage internal employee accounts.</p>
         </div>
         
@@ -126,7 +126,7 @@ export default function AdminTeamPage() {
                       <FormLabel>System Role</FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
-                          <SelectTrigger className="bg-white text-slate-900 border-slate-300 dark:bg-slate-950 dark:text-white dark:border-slate-700">
+                          <SelectTrigger className="bg-white text-white border-slate-300 dark:bg-slate-950 dark:text-white dark:border-slate-700">
                             <SelectValue placeholder="Select a role" />
                           </SelectTrigger>
                         </FormControl>
@@ -177,11 +177,11 @@ export default function AdminTeamPage() {
           <TableBody>
             {isLoading ? (
               <TableRow>
-                <TableCell colSpan={3} className="text-center py-8 text-slate-500">Loading team data...</TableCell>
+                <TableCell colSpan={3} className="text-center py-8 text-white">Loading team data...</TableCell>
               </TableRow>
             ) : employees.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={3} className="text-center py-8 text-slate-500">No employees found.</TableCell>
+                <TableCell colSpan={3} className="text-center py-8 text-white ">No employees found.</TableCell>
               </TableRow>
             ) : (
               employees.map((emp) => (
