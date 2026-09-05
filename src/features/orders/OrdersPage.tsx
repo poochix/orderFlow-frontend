@@ -7,7 +7,7 @@ import { api } from "@/lib/axios";
 
 import { Loader2 } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
+
 
 import CreateOrderModal from "./CreateOrderModal";
 
