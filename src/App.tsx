@@ -47,14 +47,23 @@ export default function App() {
           <Route element={<DashboardLayout />}>
             
             {/* The individual pages rendered inside the Layout's <Outlet /> */}
+            <Route element={<ProtectedRoute allowedRoles={['admin', 'manager']} />}>
             <Route path="/dashboard" element={<DashboardPage/>} />
+            </Route>
+
             <Route path="/orders" element={<OrdersPage/>} />
             <Route path="/ai-parse" element={<AIIngestionPage/>}/>
             {/* Register the Customers destination so navigation stays inside the protected dashboard. */}
+            <Route element={<ProtectedRoute allowedRoles={['admin', 'manager']} />} >
             <Route path="/customers" element={<CustomersPage />} />
+            </Route>
+
             
             {/**Protect routes */}
+              <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
              <Route path="/team" element={<AdminTeamPage />} />
+            </Route>
+
        
 
             {/* Default redirect for authenticated users */}

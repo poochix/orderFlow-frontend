@@ -1,11 +1,12 @@
 import type { RootState } from "@/store/store";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setAnalytics, setLoading } from "./analyticSlice";
 import { api } from "@/lib/axios";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {  Package, AlertCircle, TrendingUp, Loader2 , IndianRupee} from "lucide-react";
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip } from "recharts";
 
 
 
@@ -32,6 +33,15 @@ export default function DashboardPage(){
         fetchAnalytics();
 
     }, [dispatch]);
+
+    // Convert the statusCounts object { "Pending": 5, "Completed": 10 } into a Recharts array
+  const chartData = useMemo(() => {
+    if (!data?.statusCounts) return [];
+    return Object.entries(data.statusCounts).map(([status, count]) => ({
+      status,
+      count,
+    }));
+  }, [data]);
 
     if (isLoading || !data) {
     return (
@@ -86,6 +96,46 @@ export default function DashboardPage(){
           </CardContent>
         </Card>
       </div>
+
+      {/* Visual Chart Engine */}
+      <Card className="col-span-4">
+        <CardHeader>
+          <CardTitle>Order Distribution</CardTitle>
+          <CardDescription>Current volume of orders broken down by workflow status.</CardDescription>
+        </CardHeader>
+        <CardContent className="pl-2">
+          <div className="h-[300px] w-full mt-4">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={chartData}>
+                <XAxis 
+                  dataKey="status" 
+                  stroke="#888888" 
+                  fontSize={12} 
+                  tickLine={false} 
+                  axisLine={false} 
+                />
+                <YAxis
+                  stroke="#888888"
+                  fontSize={12}
+                  tickLine={false}
+                  axisLine={false}
+                  tickFormatter={(value) => `${value}`}
+                  allowDecimals={false}
+                />
+                <Tooltip 
+                  cursor={{ fill: 'rgba(241, 245, 249, 0.2)' }}
+                  contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                />
+                <Bar 
+                  dataKey="count" 
+                  fill="#6366f1" 
+                  radius={[4, 4, 0, 0]} 
+                />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 

@@ -11,6 +11,22 @@ import { Badge } from "@/components/ui/badge";
 
 import CreateOrderModal from "./CreateOrderModal";
 
+
+type OrderStatus =
+  | "Pending"
+  | "In Progress"
+  | "Completed"
+  | "On Hold"
+  | "Cancelled";
+
+  const ORDER_STATUSES: OrderStatus[] = [
+  "Pending",
+  "In Progress",
+  "Completed",
+  "On Hold",
+  "Cancelled",
+];
+
 function getCompanyName(
   customer: string | { _id?: string; name?: string; companyName?: string },
   customers: { _id: string; companyName: string }[],
@@ -100,6 +116,23 @@ useEffect(() => {
   fetchOrders();
 }, [dispatch]);
 
+
+//order status update
+const updateOrderStatus = async (
+  orderId: string,
+  status: OrderStatus
+) => {
+  try {
+    await api.patch(`/orders/${orderId}/status`, {
+      status,
+    });
+
+    await fetchOrders();
+  } catch (error) {
+    console.error("Failed to update order status", error);
+  }
+};
+
   return (
     <div className="space-y-6 text-white">
       <div>
@@ -118,7 +151,9 @@ useEffect(() => {
               <TableHead>Customer</TableHead>
               <TableHead>Product</TableHead>
               <TableHead>Qty</TableHead>
+              <TableHead>Deadline</TableHead>
               <TableHead>Status</TableHead>
+
             </TableRow>
           </TableHeader>
           <TableBody className="">
@@ -139,11 +174,26 @@ useEffect(() => {
                   <TableCell>{getCompanyName(order.customer, customers)}</TableCell>
                   <TableCell>{order.productName}</TableCell>
                   <TableCell>{order.quantity}</TableCell>
-                  <TableCell>
-                    <Badge className={getStatusColor(order.status)}>
-                      {order.status}
-                    </Badge>
-                  </TableCell>
+                  <TableCell>{order.deadline ? new Date(order.deadline).toLocaleDateString() : 'Deadline not found'}</TableCell>
+
+                 <TableCell>
+  <select
+    value={order.status}
+    onChange={(e) =>
+      updateOrderStatus(
+        order._id,
+        e.target.value as OrderStatus
+      )
+    }
+    className={`rounded-md px-3 py-1.5 text-sm font-medium text-white ${getStatusColor(order.status)}`}
+  >
+    {ORDER_STATUSES.map((status) => (
+      <option key={status} value={status}>
+        {status}
+      </option>
+    ))}
+  </select>
+</TableCell>
                 </TableRow>
               ))
             )}

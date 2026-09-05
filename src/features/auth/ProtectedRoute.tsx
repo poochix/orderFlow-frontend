@@ -28,7 +28,7 @@ export default function ProtectedRoutes({allowedRoles}: ProtectedRoutesProps) {
 
         //RBAC check: kicks to unauthorized if role does not match with the required permissions
         if(allowedRoles && !allowedRoles.includes(user.role)){
-            return <Navigate to='/dashboard' replace />  // or a dedicated 403 page
+            return <Navigate to='/orders' replace />  // or a dedicated 403 page
         }
 
         //renders the nested routes (e.g. dashboard)

@@ -3,7 +3,7 @@ import axios from 'axios'
 // Creates a centralized Axios instance
 export const api = axios.create({
     //Vite exposes env variables via import.meta.env
-    baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
+    baseURL: import.meta.env.VITE_API_URL,
     // CRITICAL : this tells the browser to include http-Only cookies in request
     withCredentials: true,
     headers: {

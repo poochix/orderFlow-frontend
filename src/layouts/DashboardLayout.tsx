@@ -24,7 +24,7 @@ export default function DashboardLayout() {
   };
 
   const navItems = [
-    { name: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
+   ...(user?.role !== 'staff' ? [{ name: "Dashboard", path: "/dashboard", icon: LayoutDashboard }] : []),
     { name: "Orders Pool", path: "/orders", icon: Package },
     { name: "AI Quick Parse", path: "/ai-parse", icon: Bot },
     // Show Customers to Admin and Manager roles

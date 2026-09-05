@@ -6,7 +6,8 @@ export interface Order {
     customer: string | { _id?: string; name?: string; companyName?: string };
     productName: string;
     quantity: number,
-    status: 'Pending' |'In Progress' | 'Completed';
+    deadline: Date,
+    status: 'Pending' |'In Progress' | 'Completed' | 'On Hold' | 'Cancelled';
     createdAt: string;
 }
 

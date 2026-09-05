@@ -49,11 +49,13 @@ export default function CreateOrderModal({ onSuccess }: { onSuccess: () => void 
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger >
-        <Button className="bg-indigo-600 hover:bg-indigo-700">
+      <DialogTrigger 
+         render={ <Button className="bg-indigo-600 hover:bg-indigo-700">
           <Plus className="mr-2 h-4 w-4" /> New Order
-        </Button>
-      </DialogTrigger>
+        </Button>}
+      />
+       
+     
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
           <DialogTitle>Create Manual Order</DialogTitle>
