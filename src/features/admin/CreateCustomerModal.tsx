@@ -34,11 +34,12 @@ export default function CreateCustomerModal({ onSuccess }: { onSuccess: () => vo
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger >
-        <Button className="bg-indigo-600 hover:bg-indigo-700">
+      <DialogTrigger 
+        render={ <Button className="bg-indigo-600 hover:bg-indigo-700">
           <Plus className="mr-2 h-4 w-4" /> Add Customer
-        </Button>
-      </DialogTrigger>
+        </Button>}  />
+       
+      
       <DialogContent className="sm:max-w-[550px]">
         <DialogHeader>
           <DialogTitle>Register New Customer</DialogTitle>
