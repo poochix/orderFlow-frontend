@@ -103,7 +103,7 @@ export default function AIIngestionPage() {
       <div>
         <h2 className="text-2xl font-bold tracking-tight text-slate-800 dark:text-white flex items-center gap-2">
           <Bot className="h-6 w-6 text-indigo-500" />
-          AI Smart Order Ingestion
+          Smart Order 
         </h2>
         <p className="text-sm text-slate-800 dark:text-white">Paste unstructured messages from WhatsApp or Email to auto-generate an order.</p>
       </div>

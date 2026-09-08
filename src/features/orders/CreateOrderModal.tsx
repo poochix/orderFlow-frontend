@@ -62,8 +62,8 @@ export default function CreateOrderModal({ onSuccess }: { onSuccess: () => void 
           <DialogDescription>Enter the order details directly into the shared pool.</DialogDescription>
         </DialogHeader>
 
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 text-white">
+        <Form {...form} >
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 dark:text-white">
             <FormField control={form.control} name="customer" render={({ field }) => (
               <FormItem>
                 <FormLabel>Company Name</FormLabel>

@@ -63,7 +63,7 @@ export default function CustomersPage() {
               </TableRow>
             ) : customers.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={4} className="h-24 text-center text-white">No customers found.</TableCell>
+                <TableCell colSpan={4} className="h-24 text-center text-slate-800 dark:text-white">No customers found.</TableCell>
               </TableRow>
             ) : (
               customers.map((customer) => (

@@ -177,11 +177,11 @@ export default function AdminTeamPage() {
           <TableBody>
             {isLoading ? (
               <TableRow>
-                <TableCell colSpan={3} className="text-center py-8 text-white">Loading team data...</TableCell>
+                <TableCell colSpan={3} className="text-center py-8 text-slate-800 dark:text-white">Loading team data...</TableCell>
               </TableRow>
             ) : employees.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={3} className="text-center py-8 text-white ">No employees found.</TableCell>
+                <TableCell colSpan={3} className="text-center py-8 text-slate-800 dark:text-white ">No employees found.</TableCell>
               </TableRow>
             ) : (
               employees.map((emp) => (

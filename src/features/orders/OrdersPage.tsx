@@ -142,7 +142,7 @@ const updateOrderStatus = async (
               </TableRow>
             ) : orders.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={6} className="h-24  text-center text-white">No orders found.</TableCell>
+                <TableCell colSpan={6} className="h-24  text-center text-slate-800 dark:text-white">No orders found.</TableCell>
               </TableRow>
             ) : (
               orders.map((order) => (
