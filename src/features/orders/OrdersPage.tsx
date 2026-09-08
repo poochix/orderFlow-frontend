@@ -112,15 +112,15 @@ const updateOrderStatus = async (
 };
 
   return (
-    <div className="space-y-6 text-white">
+    <div className="space-y-6 ">
       <div>
-        <h2 className="text-2xl font-bold tracking-tight text-white dark:text-white">Shared Order Pool</h2>
-        <p className="text-sm text-slate-500">Live operational dashboard. Statuses update in real-time.</p>
+        <h2 className="text-2xl font-bold tracking-tight text-slate-800 dark:text-white">Shared Order Pool</h2>
+        <p className="text-sm text-slate-500 dark:text-white">Live operational dashboard. Statuses update in real-time.</p>
       </div>
       {/*Injects the manual creation modal here */} 
       <CreateOrderModal onSuccess={fetchOrders} />
 
-      <div className="rounded-md border bg-white dark:border-slate-800 dark:bg-slate-950">
+      <div className="rounded-md border bg-white dark:border-slate-800 dark:bg-slate-950 dark:text-white">
         <Table>
           <TableHeader>
             <TableRow>
@@ -158,7 +158,7 @@ const updateOrderStatus = async (
                       />
                        
                       
-                      <SheetContent className="sm:max-w-[500px] text-white">
+                      <SheetContent className="sm:max-w-[500px] text-slate-800 dark:text-white">
                         <SheetHeader>
                           <SheetTitle>Order {order.orderNumber}</SheetTitle>
                           <SheetDescription>Immutable audit timeline and lifecycle history.</SheetDescription>

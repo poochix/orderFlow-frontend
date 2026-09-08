@@ -1,11 +1,15 @@
 import { Outlet, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { LayoutDashboard, Package, Bot, LogOut, Users, ShieldCheck } from "lucide-react";
+import { LayoutDashboard, Package, Bot, LogOut, Users, ShieldCheck, Moon, Sun } from "lucide-react";
+
+
 
 import { api } from "@/lib/axios";
 import { logout } from "@/features/auth/authSlice";
 import { type RootState } from "@/store/store";
 import { Button } from "@/components/ui/button";
+
+import { useTheme } from "@/hooks/useTheme";
 
 export default function DashboardLayout() {
   const dispatch = useDispatch();
@@ -33,6 +37,8 @@ export default function DashboardLayout() {
     ...(user?.role === 'admin' ? [{ name: "Team", path: "/team", icon: ShieldCheck }] : []),
   ];
 
+  const {theme, toggleTheme} = useTheme()
+
   return (
     <div className="flex h-screen bg-slate-50 dark:bg-slate-900">
       {/* Sidebar Navigation */}
@@ -40,6 +46,31 @@ export default function DashboardLayout() {
         <div className="mb-8 px-2">
           <h1 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">OrderFlow</h1>
           <p className="text-xs text-slate-500 capitalize">{user?.role} Portal</p>
+        </div>
+
+        <div className="flex items-center px-2 mb-2">
+          <button
+            type="button"
+            onClick={toggleTheme}
+            role="switch"
+            aria-checked={theme === "dark"}
+            aria-label={theme === "light" ? "Switch to dark mode" : "Switch to light mode"}
+            title={theme === "light" ? "Switch to dark mode" : "Switch to light mode"}
+            className={`relative flex h-7 w-12 items-center rounded-full border p-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950 ${
+              theme === "dark"
+                ? "border-slate-600 bg-slate-700"
+                : "border-slate-300 bg-slate-200"
+            }`}
+          >
+            <Sun className="h-3.5 w-3.5 text-amber-500" aria-hidden="true" />
+            <Moon className="absolute right-1 h-3.5 w-3.5 text-slate-800" aria-hidden="true" />
+            <span
+              aria-hidden="true"
+              className={`absolute left-1 h-5 w-5 rounded-full bg-white shadow-sm transition-transform dark:bg-slate-950 ${
+                theme === "dark" ? "translate-x-5" : "translate-x-0"
+              }`}
+            />
+          </button>
         </div>
 
         <nav className="flex-1 space-y-1">

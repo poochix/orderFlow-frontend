@@ -70,18 +70,18 @@ export default function AdminTeamPage() {
   };
 
   return (
-    <div className="space-y-6 text-white">
+    <div className="space-y-6 ">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold tracking-tight text-white dark:text-white">Team Management</h2>
-          <p className="text-sm text-slate-500">Provision and manage internal employee accounts.</p>
+          <h2 className="text-2xl font-bold tracking-tight text-slate-800 dark:text-white">Team Management</h2>
+          <p className="text-sm text-slate-500 dark:text-white">Provision and manage internal employee accounts.</p>
         </div>
         
         {/* Add Employee Modal */}
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger
             render={
-              <Button>
+              <Button className="bg-indigo-600 hover:indigo-700 text-white ">
                 <Plus className="mr-2 h-4 w-4" /> Add Employee
               </Button>
             }
@@ -165,7 +165,7 @@ export default function AdminTeamPage() {
       </div>
 
       {/* Staff Data Table */}
-      <div className="rounded-md border bg-white dark:bg-slate-950 dark:border-slate-800">
+      <div className="rounded-md border bg-white dark:bg-slate-950 dark:border-slate-800 dark:text-white">
         <Table>
           <TableHeader>
             <TableRow>

@@ -34,17 +34,17 @@ export default function CustomersPage() {
   }, [fetchCustomers]);
 
   return (
-    <div className="space-y-6 text-white">
+    <div className="space-y-6 ">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold tracking-tight text-white dark:text-white">Customers</h2>
-          <p className="text-sm text-slate-500">Manage the B2B clients linked to your orders.</p>
+          <h2 className="text-2xl font-bold tracking-tight text-slate-800 dark:text-white">Customers</h2>
+          <p className="text-sm text-slate-500 dark:text-white">Manage the B2B clients linked to your orders.</p>
         </div>
         {/* 🚀 Inject the modal and pass the fetch function */}
         <CreateCustomerModal onSuccess={fetchCustomers} />
       </div>
 
-      <div className="rounded-md border bg-white dark:border-slate-800 dark:bg-slate-950">
+      <div className="rounded-md border bg-white dark:border-slate-800 dark:bg-slate-950 dark:text-white">
         <Table>
           <TableHeader>
             <TableRow>

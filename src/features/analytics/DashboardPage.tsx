@@ -52,13 +52,13 @@ export default function DashboardPage(){
   }
 
   return (
-    <div className="space-y-6 text-white">
+    <div className="space-y-6  ">
       <div>
-        <h2 className="text-2xl font-bold tracking-tight text-white dark:text-white">Analytics Overview</h2>
-        <p className="text-sm text-slate-500">Live operational metrics and revenue tracking.</p>
+        <h2 className="text-2xl font-bold tracking-tight text-slate-800   dark:text-white">Analytics Overview</h2>
+        <p className="text-sm text-slate-500 dark:text-white">Live operational metrics and revenue tracking.</p>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 dark:text-white">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
@@ -98,7 +98,7 @@ export default function DashboardPage(){
       </div>
 
       {/* Visual Chart Engine */}
-      <Card className="col-span-4">
+      <Card className="col-span-4 dark:text-white ">
         <CardHeader>
           <CardTitle>Order Distribution</CardTitle>
           <CardDescription>Current volume of orders broken down by workflow status.</CardDescription>

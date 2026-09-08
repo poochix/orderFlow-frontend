@@ -101,14 +101,14 @@ export default function AIIngestionPage() {
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       <div>
-        <h2 className="text-2xl font-bold tracking-tight text-white dark:text-white flex items-center gap-2">
+        <h2 className="text-2xl font-bold tracking-tight text-slate-800 dark:text-white flex items-center gap-2">
           <Bot className="h-6 w-6 text-indigo-500" />
           AI Smart Order Ingestion
         </h2>
-        <p className="text-sm text-white">Paste unstructured messages from WhatsApp or Email to auto-generate an order.</p>
+        <p className="text-sm text-slate-800 dark:text-white">Paste unstructured messages from WhatsApp or Email to auto-generate an order.</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-white">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-slate-800 dark:text-white">
         <Card>
           <CardHeader>
             <CardTitle className="text-lg">Raw Input</CardTitle>
@@ -117,7 +117,7 @@ export default function AIIngestionPage() {
           <CardContent>
             <Textarea 
               placeholder="e.g., Need 50 Steel pipes for Acme Corp by Dec 1st. Make it high priority..."
-              className="min-h-[200px] resize-none text-white"
+              className="min-h-[200px] resize-none "
               value={rawText}
               onChange={(e) => setRawText(e.target.value)}
             />
