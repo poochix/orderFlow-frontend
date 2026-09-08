@@ -1,6 +1,19 @@
 # OrderFlow — Frontend
 
 > A modern operations dashboard for managing orders, customers, employees, and business workflows.
+--------------------------
+Admin Dashboard
+
+<img width="1915" height="902" alt="Screenshot 2026-09-08 210732" src="https://github.com/user-attachments/assets/d8a80f07-b7fa-4cd6-b7df-d2d15c460525" />
+
+-------------------------------------------
+
+Staff Portal
+
+<img width="1917" height="905" alt="Screenshot 2026-09-08 210623" src="https://github.com/user-attachments/assets/f216436f-66bb-4dd0-80ea-1550430111a6" />
+
+-------------------------------------------------
+
 
 **OrderFlow** is a full-stack order management platform designed around real-world business operations. This repository contains the React frontend, providing the interface for authentication, order management, customer management, employee administration, analytics, and real-time operational updates.
 
