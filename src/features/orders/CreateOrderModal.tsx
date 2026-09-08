@@ -63,7 +63,7 @@ export default function CreateOrderModal({ onSuccess }: { onSuccess: () => void 
         </DialogHeader>
 
         <Form {...form} >
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 dark:text-white">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 text-slate-800 dark:text-white">
             <FormField control={form.control} name="customer" render={({ field }) => (
               <FormItem>
                 <FormLabel>Company Name</FormLabel>
@@ -78,7 +78,7 @@ export default function CreateOrderModal({ onSuccess }: { onSuccess: () => void 
     return customer?.companyName || "Select a company";
   }}
 </SelectValue></SelectTrigger></FormControl>
-                  <SelectContent   alignItemWithTrigger={false}  className="bg-white text-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-lg z-50" >
+                  <SelectContent   alignItemWithTrigger={false}  className="bg-white text-slate-800 dark:text-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-lg z-50" >
                     {customers.map((customer) => (
                       <SelectItem key={customer._id} value={customer._id}>
                         {customer.companyName}
@@ -109,7 +109,7 @@ export default function CreateOrderModal({ onSuccess }: { onSuccess: () => void 
                   <Select  onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl><SelectTrigger><SelectValue placeholder="Select priority" /></SelectTrigger></FormControl>
                     {/**dropdown positioning fixed */}
-                    <SelectContent   alignItemWithTrigger={false} className="bg-white text-white  dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-lg z-50">
+                    <SelectContent   alignItemWithTrigger={false} className="bg-white text-slate-800 dark:text-white  dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-lg z-50">
                       {['Low', 'Medium', 'High', 'Urgent'].map(p => <SelectItem key={p} value={p}>{p}</SelectItem>)}
                     </SelectContent>
                   </Select>
