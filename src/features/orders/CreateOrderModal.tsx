@@ -94,6 +94,12 @@ export default function CreateOrderModal({ onSuccess }: { onSuccess: () => void 
               <FormField control={form.control} name="productName" render={({ field }) => (
                 <FormItem><FormLabel>Product</FormLabel><FormControl><Input placeholder="e.g. Steel Pipes" {...field} /></FormControl><FormMessage /></FormItem>
               )} />
+               <FormField control={form.control} name="thickness" render={({ field }) => (
+                <FormItem><FormLabel>Thickness</FormLabel><FormControl><Input type="string"  {...field} /></FormControl><FormMessage /></FormItem>
+              )} />
+               <FormField control={form.control} name="width" render={({ field }) => (
+                <FormItem><FormLabel>Width</FormLabel><FormControl><Input type="string" {...field} /></FormControl><FormMessage /></FormItem>
+              )} />
               <FormField control={form.control} name="quantity" render={({ field }) => (
                 <FormItem><FormLabel>Quantity</FormLabel><FormControl><Input type="number" {...field} /></FormControl><FormMessage /></FormItem>
               )} />

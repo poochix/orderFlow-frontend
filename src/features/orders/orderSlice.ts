@@ -5,6 +5,10 @@ export interface Order {
     orderNumber: string;
     customer: string | { _id?: string; name?: string; companyName?: string };
     productName: string;
+    
+    thickness:string;
+    width: string;
+
     quantity: number,
     deadline: Date,
     status: 'Pending' |'In Progress' | 'Completed' | 'On Hold' | 'Cancelled';
