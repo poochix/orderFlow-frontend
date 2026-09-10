@@ -1,5 +1,15 @@
 import {type PayloadAction, createSlice} from '@reduxjs/toolkit'
 
+
+export interface DispatchHistory {
+  quantity: number;
+  dispatchedAt: string;
+  dispatchedBy: {
+    _id: string;
+    name: string;
+  };
+}
+
 export interface Order {
     _id: string;
     orderNumber: string;
@@ -10,6 +20,8 @@ export interface Order {
     width: string;
 
     quantity: number,
+
+    dispatchHistory: DispatchHistory;
     deadline: Date,
     status: 'Pending' |'In Progress' | 'Completed' | 'On Hold' | 'Cancelled';
     createdAt: string;
