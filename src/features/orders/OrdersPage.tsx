@@ -40,8 +40,8 @@ const ORDER_STATUSES: OrderStatus[] = [
 ];
 
 function getCompanyName(
-  customer: string | { _id?: string; name?: string; companyName?: string },
-  customers: { _id: string; companyName: string }[],
+  customer: string | { _id?: string; name?: string; companyName?: string },  // customer : id || {}
+  customers: { _id: string; companyName: string }[],   // from fetchCustomers() -> setCustomers = state
 ): string {
   if (typeof customer === "string") {
     return (
@@ -272,6 +272,43 @@ const pendingQty = Math.max(
       {/* Create order */}
       <CreateOrderModal onSuccess={fetchOrders} />
 
+<div className="flex items-center justify-center gap-4">
+
+      <select
+       value={companyFilter}
+       onChange={(e)=> setCompanyFilter(e.target.value)}
+       className="rounded-md border px-4 py-2 text-slate-800 dark:bg:slate-900 dark:text-white "
+>
+  <option value="All"  className="dark:bg-slate-900">All Companies</option>
+  {customers.map((customer)=>(
+    <option key={customer._id}
+    value={customer.companyName}
+    className="dark:bg-slate-900"
+    >{customer.companyName}
+       
+       </option>
+  ))}
+
+      </select>
+
+      <select value={statusFilter}
+         onChange={(e)=> setStatusFilter(e.target.value as 'All' | OrderStatus)}
+         className="rounded-md border px-4 py-2 text-slate-800 dark:bg:slate-900 dark:text-white "
+      >
+        <option value="All"  className="dark:bg-slate-900">
+          All Status
+        </option>
+          {ORDER_STATUSES.map((status)=>(
+          <option key={status}
+             value={status}
+             className="dark:bg-slate-900"
+           >{status}
+       
+          </option>
+  ))}
+      </select>
+  </div>
+
       {/* Orders table */}
       <div className="overflow-x-auto rounded-md  border bg-white dark:border-slate-800 dark:bg-slate-950 dark:text-white">
         <Table className="min-w-[1200px] ">
@@ -311,7 +348,7 @@ const pendingQty = Math.max(
                 </TableCell>
               </TableRow>
             ) : (
-              orders.map((order) => {
+              filteredOrders.map((order) => {
                const pendingQty = getPendingQuantity(order);
 
                 const isDispatching =
