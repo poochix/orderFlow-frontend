@@ -45,7 +45,7 @@ function getCompanyName(
 ): string {
   if (typeof customer === "string") {
     return (
-      customers.find((item) => item._id === customer)?.companyName ||
+      customers.find((item) => item._id === customer)?.companyName ??
       "Unknown"
     );
   }
@@ -55,8 +55,8 @@ function getCompanyName(
   }
 
   return (
-    customers.find((item) => item._id === customer._id)?.companyName ||
-    customer.name ||
+    customers.find((item) => item._id === customer._id)?.companyName ??
+    customer.name ??
     "Unknown"
   );
 }
@@ -73,16 +73,16 @@ export default function OrdersPage() {
   >([]);
 
   // Stores the dispatch input for each order
-  const [dispatchInputs, setDispatchInputs] = useState<Record<string, string>>(
-    {},
-  );
+  const [dispatchInputs, setDispatchInputs] = useState<Record<string, string>>({});
 
   // Track which order is currently being dispatched
-  const [dispatchingOrderId, setDispatchingOrderId] = useState<string | null>(
-    null,
-  );
-
+  const [dispatchingOrderId, setDispatchingOrderId] = useState<string | null>(null);
   const [expandedOrderId, setExpandedOrderId] = useState<string | null>(null);
+
+// tracking filtered status and company name for order filtration
+  const [statusFilter, setStatusFilter] = useState<"All" | OrderStatus>("All")
+  const [companyFilter, setCompanyFilter] = useState<string>("All");
+
 
   // Initializes socket
   useSocket();
@@ -242,6 +242,19 @@ const pendingQty = Math.max(
       console.error("Failed to update order status", error);
     }
   };
+
+
+
+  const filteredOrders = orders.filter((order)=>{    // .filter() heavily relies on the returned values as it converts it into boolean
+    
+    const matchesStatus = statusFilter === "All" || order.status === statusFilter;
+    
+    const companyName = getCompanyName(order.customer, customers);
+
+    const matchesCompany = companyFilter === "All" || companyName == companyFilter;
+
+    return matchesStatus && matchesCompany
+  })
 
   return (
     <div className="space-y-6">

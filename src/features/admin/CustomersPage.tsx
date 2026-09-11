@@ -10,6 +10,7 @@ interface Customer {
   name?: string;
   email?: string;
   phone?: string;
+  address?: string;
 }
 
 export default function CustomersPage() {
@@ -52,18 +53,20 @@ export default function CustomersPage() {
               <TableHead>Contact</TableHead>
               <TableHead>Email</TableHead>
               <TableHead>Phone</TableHead>
+              <TableHead>Address</TableHead>
+
             </TableRow>
           </TableHeader>
           <TableBody>
             {isLoading ? (
               <TableRow>
-                <TableCell colSpan={4} className="h-24 text-center">
+                <TableCell colSpan={5} className="h-24 text-center">
                   <Loader2 className="mx-auto h-6 w-6 animate-spin text-slate-400" />
                 </TableCell>
               </TableRow>
             ) : customers.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={4} className="h-24 text-center text-slate-800 dark:text-white">No customers found.</TableCell>
+                <TableCell colSpan={5} className="h-24 text-center text-slate-800 dark:text-white">No customers found.</TableCell>
               </TableRow>
             ) : (
               customers.map((customer) => (
@@ -72,6 +75,8 @@ export default function CustomersPage() {
                   <TableCell>{customer.name || "-"}</TableCell>
                   <TableCell>{customer.email || "-"}</TableCell>
                   <TableCell>{customer.phone || "-"}</TableCell>
+                  <TableCell>{customer.address || "-"}</TableCell>
+
                 </TableRow>
               ))
             )}
