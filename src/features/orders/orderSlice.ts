@@ -1,30 +1,47 @@
-import {type PayloadAction, createSlice} from '@reduxjs/toolkit'
+import { type PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 
 export interface DispatchHistory {
-  quantity: number;
-  dispatchedAt: string;
-  dispatchedBy: {
-    _id: string;
-    name: string;
-  };
+    quantity: number;
+    dispatchedAt: string;
+    dispatchedBy: {
+        _id: string;
+        name: string;
+    };
 }
 
 export interface Order {
     _id: string;
     orderNumber: string;
     customer: string | { _id?: string; name?: string; companyName?: string };
+ 
     productName: string;
-    
-    thickness:string;
-    width: string;
+    description: string;
 
-    quantity: number,
+    thickness?: string;
+    width?: string;
 
-    dispatchHistory: DispatchHistory;
-    deadline: Date,
-    status: 'Pending' |'In Progress' | 'Completed' | 'On Hold' | 'Cancelled';
+    quantity: number;
+    price: number;
+
+    assignedEmployee?:
+    | string
+    | {
+        _id: string;
+        name: string;
+        email?: string;
+      };
+
+      status: 'Pending' | 'In Progress' | 'Completed' | 'On Hold' | 'Cancelled';
+        priority:  "Low" | "Medium" | "High" | "Urgent";
+
+        deadline: Date;
+    dispatchHistory: DispatchHistory[];
+    dispatchedQty:    number;
+    isDeleted: boolean;
+
     createdAt: string;
+    updatedAt: string;
 }
 
 interface OrderState {
@@ -45,24 +62,24 @@ const orderSlice = createSlice({
     initialState,
     reducers: {
 
-           setOrders: (state, action: PayloadAction<{orders: Order[], total: number}>)=>{
+        setOrders: (state, action: PayloadAction<{ orders: Order[], total: number }>) => {
             state.orders = action.payload.orders;
-            state.totalOrders= action.payload.total;
-            state.isLoading= false;
-           },
+            state.totalOrders = action.payload.total;
+            state.isLoading = false;
+        },
 
-           updateOrderStatus: (state, action: PayloadAction<{orderId: string, newStatus: Order['status']}>)=>{
-                 const order = state.orders.find(o=> o._id === action.payload.orderId);
-               if(order){
+        updateOrderStatus: (state, action: PayloadAction<{ orderId: string, newStatus: Order['status'] }>) => {
+            const order = state.orders.find(o => o._id === action.payload.orderId);
+            if (order) {
                 order.status = action.payload.newStatus;
-               };
-           },
+            };
+        },
 
-           setLoading: (state, action: PayloadAction<boolean>)=>{
-               state.isLoading = action.payload
-           }
+        setLoading: (state, action: PayloadAction<boolean>) => {
+            state.isLoading = action.payload
+        }
     }
 })
 
-export const {setOrders, updateOrderStatus, setLoading} = orderSlice.actions;
+export const { setOrders, updateOrderStatus, setLoading } = orderSlice.actions;
 export default orderSlice.reducer;

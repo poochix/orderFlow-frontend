@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/sheet";
 import CreateOrderModal from "./CreateOrderModal";
 import OrderTimeline from "./OrderTimeline";
+import EditOrderModal from "./EditOrderModal";
 
 type OrderStatus =
   | "Pending"
@@ -325,6 +326,7 @@ const pendingQty = Math.max(
               <TableHead className="text-center">Pending</TableHead>
               <TableHead className="text-center">Status</TableHead>
               <TableHead className="text-center">History</TableHead>
+              <TableHead className="text-center">Actions</TableHead>
             </TableRow>
           </TableHeader>
 
@@ -332,7 +334,7 @@ const pendingQty = Math.max(
             {isLoading ? (
               <TableRow>
                 <TableCell
-                  colSpan={11}
+                  colSpan={12}
                   className="h-24 text-center"
                 >
                   <Loader2 className="mx-auto h-6 w-6 animate-spin text-slate-400" />
@@ -341,7 +343,7 @@ const pendingQty = Math.max(
             ) : orders.length === 0 ? (
               <TableRow>
                 <TableCell
-                  colSpan={11}
+                  colSpan={12}
                   className="h-24 text-center text-slate-800 dark:text-white"
                 >
                   No orders found.
@@ -501,6 +503,13 @@ const pendingQty = Math.max(
                           )}
                         </button>
                       </TableCell>
+                       <TableCell className="text-center">
+                            <EditOrderModal 
+                              order={order}
+                              onSuccess={fetchOrders}
+                            />
+                       </TableCell>
+
                     </TableRow>
 
                     {expandedOrderId === order._id && (
