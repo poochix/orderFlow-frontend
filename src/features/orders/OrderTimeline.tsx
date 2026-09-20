@@ -17,7 +17,7 @@ const formatTimestamp = (value: string) =>
   new Intl.DateTimeFormat("en-US", {
     month: "short",
     day: "numeric",
-    hour: "numeric",  
+    hour: "numeric",
     minute: "2-digit",
   }).format(new Date(value));
 
@@ -62,6 +62,8 @@ export default function OrderTimeline({ orderId }: { orderId: string }) {
     };
   }, [orderId]);
 
+
+
   const getActionIcon = (action: string) => {
     switch (action) {
       case 'CREATED': return <PlusCircle className="h-4 w-4 text-emerald-500" />;
@@ -69,6 +71,41 @@ export default function OrderTimeline({ orderId }: { orderId: string }) {
       case 'UPDATED': return <Edit className="h-4 w-4 text-blue-500" />;
       default: return <History className="h-4 w-4 text-slate-500" />;
     }
+  };
+  const formatAuditValue = (key: string, value: unknown): string => {
+    if (typeof value !== "object" || value === null) {
+      return String(value);
+    }
+
+    const change = value as {
+      from: unknown;
+      to: unknown;
+    };
+
+    // Format deadline specifically as a readable date
+    if (key === "deadline") {
+      const formatDate = (date: unknown) => {
+        if (typeof date !== "string") {
+          return String(date);
+        }
+
+        const parsedDate = new Date(date);
+
+        if (Number.isNaN(parsedDate.getTime())) {
+          return date;
+        }
+
+        return new Intl.DateTimeFormat("en-IN", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        }).format(parsedDate);
+      };
+
+      return `${formatDate(change.from)} → ${formatDate(change.to)}`;
+    }
+
+    return `${String(change.from)} → ${String(change.to)}`;
   };
 
   if (isLoading) {
@@ -109,8 +146,13 @@ export default function OrderTimeline({ orderId }: { orderId: string }) {
                 <div className="mt-3 space-y-1 border-t border-slate-200 pt-3 dark:border-slate-700">
                   {Object.entries(log.changes).map(([key, value]) => (
                     <div key={key} className="break-words text-xs">
-                      <span className="capitalize text-slate-500 dark:text-slate-400">{key}:</span>{" "}
-                      <span className="font-medium text-slate-700 dark:text-slate-200">{String(value)}</span>
+                      <span className="capitalize text-slate-500 dark:text-slate-400">
+                        {key}:
+                      </span>{" "}
+
+                      <span className="font-medium text-slate-700 dark:text-slate-200">
+                        {formatAuditValue(key, value)}
+                      </span>
                     </div>
                   ))}
                 </div>

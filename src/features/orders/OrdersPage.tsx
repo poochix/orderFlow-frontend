@@ -1,6 +1,6 @@
 import { useSocket } from "@/hooks/useSocket";
 import type { RootState } from "@/store/store";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading, setOrders } from "./orderSlice";
 import { api } from "@/lib/axios";
@@ -357,8 +357,8 @@ const pendingQty = Math.max(
                   dispatchingOrderId === order._id;
 
                 return (
-                  <>
-                    <TableRow key={order._id}>
+                  <Fragment key={order._id} >
+                    <TableRow >
                       {/* Order Number + Timeline */}
                       <TableCell className="text-center">
                         <Sheet>
@@ -475,7 +475,7 @@ const pendingQty = Math.max(
                           )}`}
                         >
                           {ORDER_STATUSES.map((status) => (
-                            <option key={status} value={status}>
+                            <option key={`${status} - 'a'`} value={status}>
                               {status}
                             </option>
                           ))}
@@ -514,7 +514,7 @@ const pendingQty = Math.max(
 
                     {expandedOrderId === order._id && (
                       <TableRow>
-                        <TableCell colSpan={11}>
+                        <TableCell colSpan={12}>
                           <div className="px-6 py-4">
                             <h3 className="mb-4 text-sm font-semibold text-slate-800 dark:text-white">
                               Dispatch History
@@ -571,7 +571,7 @@ const pendingQty = Math.max(
                         </TableCell>
                       </TableRow>
                     )}
-                  </>
+                  </Fragment>
                 );
               })
             )}

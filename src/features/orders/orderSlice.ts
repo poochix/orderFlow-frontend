@@ -37,7 +37,7 @@ export interface Order {
 
         deadline: Date;
     dispatchHistory: DispatchHistory[];
-    dispatchedQty:    number;
+    dispatchedQty:  number;
     isDeleted: boolean;
 
     createdAt: string;

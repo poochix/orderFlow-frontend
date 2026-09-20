@@ -36,6 +36,14 @@ interface Customer {
 }
 
 export default function EditOrderModal({ order, onSuccess }: EditOrderModalProps) {
+    
+    useEffect(() => {
+        console.log("EditOrderModal mounted");
+
+        return () => {
+            console.log("EditOrderModal unmounted");
+        };
+    }, []);
     const [isOpen, setIsOpen] = useState(false);
     const [customers, setCustomers] = useState<Customer[]>([]);
     const [serverError, setServerError] = useState<string | null>(null);
@@ -49,7 +57,7 @@ export default function EditOrderModal({ order, onSuccess }: EditOrderModalProps
         productName: order.productName || "",
         thickness: order.thickness || "",
         width: order.width || "",
-        quantity: order.quantity || 1,
+        quantity: order.quantity ?? 1,
         price: order.price ?? 0,
         priority: order.priority || "Medium",
         deadline: order.deadline
@@ -64,9 +72,12 @@ export default function EditOrderModal({ order, onSuccess }: EditOrderModalProps
     });
 
     // Re-sync form default values if the order prop changes (common in real-time dashboards)
-    useEffect(() => {
-        form.reset(getDefaultValues());
-    }, [order, customerId]);
+    // useEffect(() => {
+    //     if(isOpen){
+    //         form.reset(getDefaultValues());
+    //     }
+
+    // }, [order._id, isOpen]);
 
     useEffect(() => {
         if (isOpen) {
@@ -101,14 +112,23 @@ export default function EditOrderModal({ order, onSuccess }: EditOrderModalProps
         }
     };
 
+console.log("EDIT ORDER:", {
+  orderId: order._id,
+  dispatchedQty: order.dispatchedQty,
+  dispatchHistory: order.dispatchHistory,
+});
     return (
         <>
-            <Dialog open={isOpen} onOpenChange={(open)=>{
+        
+            <Dialog open={isOpen} onOpenChange={(open) => {
                 setIsOpen(open);
 
                 //resets form to original value
-                if(!open){
+                if (open) {
                     form.reset(getDefaultValues())
+                }
+                if (!open) {
+                    form.reset()
                 }
 
                 //clears all errors
@@ -168,15 +188,32 @@ export default function EditOrderModal({ order, onSuccess }: EditOrderModalProps
                                     <FormItem><FormLabel>Width</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>
                                 )} />
                                 <FormField control={form.control} name="quantity" render={({ field }) => (
-                                    <FormItem><FormLabel>Quantity</FormLabel><FormControl><Input type="number" {...field} onChange={(e) => field.onChange(e.target.valueAsNumber)} />
-                                    </FormControl>
+                                    <FormItem>
+                                        <FormLabel>Quantity</FormLabel>
+                                        <FormControl>
+                                            <Input type="number"
+                                                value={field.value ?? ""}
+                                                onChange={(e) => {
+                                                    const value = e.target.value
+                                                    console.log("INPUT VALUE:", value);
+
+                                                    field.onChange(value === "" ? "" : Number(value))
+                                                }} />
+                                        </FormControl>
                                         <p className="text-xs text-muted-foreground">
                                             Already dispatched: {order.dispatchedQty}
                                         </p>
                                         <FormMessage /></FormItem>
                                 )} />
                                 <FormField control={form.control} name="price" render={({ field }) => (
-                                    <FormItem><FormLabel>Unit Price ($)</FormLabel><FormControl><Input type="number" step="0.01" {...field} onChange={(e) => field.onChange(e.target.valueAsNumber)} /></FormControl><FormMessage /></FormItem>
+                                    <FormItem><FormLabel>Unit Price ( ₹ )</FormLabel>
+                                        <FormControl>
+                                            <Input type="number" step="0.01" {...field} 
+                                            onChange={(e) =>{
+                                                 const value = e.target.value
+                                                field.onChange(value==="" ? "" : Number(value))}} />
+                                        </FormControl>
+                                        <FormMessage /></FormItem>
                                 )} />
                                 <FormField control={form.control} name="deadline" render={({ field }) => (
                                     <FormItem><FormLabel>Deadline</FormLabel><FormControl><Input type="date" {...field} /></FormControl><FormMessage /></FormItem>
@@ -238,4 +275,5 @@ export default function EditOrderModal({ order, onSuccess }: EditOrderModalProps
             </AlertDialog>
         </>
     );
+    
 }
