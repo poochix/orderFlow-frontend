@@ -3,6 +3,7 @@ import { Loader2 } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { api } from "@/lib/axios";
 import CreateCustomerModal from "./CreateCustomerModal"; // 🚀 Import the modal
+import { Input } from "@/components/ui/input";
 
 interface Customer {
   _id: string;
@@ -16,23 +17,44 @@ interface Customer {
 export default function CustomersPage() {
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1)
+  const limit = 10
 
   // 🚀 Wrap in useCallback to safely pass as a dependency/prop
   const fetchCustomers = useCallback(async () => {
     try {
       setIsLoading(true);
-      const response = await api.get("/customers");
+      const response = await api.get("/customers", {
+        params: {
+          page,
+          limit,
+          companyName: search.trim() || undefined
+        },
+      });
       setCustomers(response.data.data ?? []);
     } catch (error) {
       console.error("Failed to fetch customers", error);
+
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [page, limit, search]);
 
+  // useEffect(() => {
+  //   fetchCustomers();
+  // }, [fetchCustomers]);
+
+  // debouncing useEffect (when to fetch)
   useEffect(() => {
-    fetchCustomers();
-  }, [fetchCustomers]);
+    const timer = setTimeout(() => {
+      fetchCustomers()
+    }, 300);
+
+    return () => {
+      clearTimeout(timer)
+    };
+  }, [fetchCustomers])
 
   return (
     <div className="space-y-6 ">
@@ -45,6 +67,23 @@ export default function CustomersPage() {
         <CreateCustomerModal onSuccess={fetchCustomers} />
       </div>
 
+
+      <div className="flex justify-center  ">
+
+        <div className="w-full max-w-md">
+
+          <Input
+            placeholder="Search company name"
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              setPage(1)
+            }}
+            className=" rounded-md border bg-white text-slate-800 dark:border-slate-800 dark:bg-slate-950 dark:text-white"
+
+          />
+        </div>
+      </div>
       <div className="rounded-md border bg-white dark:border-slate-800 dark:bg-slate-950 dark:text-white">
         <Table>
           <TableHeader>
