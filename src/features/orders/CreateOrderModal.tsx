@@ -25,7 +25,7 @@ export default function CreateOrderModal({ onSuccess }: { onSuccess: () => void 
   const form = useForm<CreateOrderFormValues>({
     resolver: zodResolver(createOrderSchema),
     defaultValues: {
-      customer: "", productName: "", quantity: 1, price: 0, priority: "Medium", deadline: "", description: ""
+      customer: "", productName: "", thickness: "", width: "", quantity: 1, price: 0, priority: "Medium", deadline: "", description: ""
     },
   });
 
@@ -49,13 +49,13 @@ export default function CreateOrderModal({ onSuccess }: { onSuccess: () => void 
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger 
-         render={ <Button className="bg-indigo-600 hover:bg-indigo-700 text-white dark:text-white">
+      <DialogTrigger
+        render={<Button className="bg-indigo-600 hover:bg-indigo-700 text-white dark:text-white">
           <Plus className="mr-2 h-4 w-4" /> New Order
         </Button>}
       />
-       
-     
+
+
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
           <DialogTitle>Create Manual Order</DialogTitle>
@@ -70,15 +70,15 @@ export default function CreateOrderModal({ onSuccess }: { onSuccess: () => void 
                 {/* Adding value={field.value} here to perfectly sync Radix UI with React Hook Form */}
                 <Select onValueChange={field.onChange} value={field.value} defaultValue={field.value} >
                   <FormControl><SelectTrigger><SelectValue placeholder="Select a company">
-  {(value: string | null) => {
-    const customer = customers.find(
-      (c) => c._id === value
-    );
+                    {(value: string | null) => {
+                      const customer = customers.find(
+                        (c) => c._id === value
+                      );
 
-    return customer?.companyName || "Select a company";
-  }}
-</SelectValue></SelectTrigger></FormControl>
-                  <SelectContent   alignItemWithTrigger={false}  className="bg-white text-slate-800 dark:text-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-lg z-50" >
+                      return customer?.companyName || "Select a company";
+                    }}
+                  </SelectValue></SelectTrigger></FormControl>
+                  <SelectContent alignItemWithTrigger={false} className="bg-white text-slate-800 dark:text-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-lg z-50" >
                     {customers.map((customer) => (
                       <SelectItem key={customer._id} value={customer._id}>
                         {customer.companyName}
@@ -94,10 +94,10 @@ export default function CreateOrderModal({ onSuccess }: { onSuccess: () => void 
               <FormField control={form.control} name="productName" render={({ field }) => (
                 <FormItem><FormLabel>Product</FormLabel><FormControl><Input placeholder="e.g. Steel Pipes" {...field} /></FormControl><FormMessage /></FormItem>
               )} />
-               <FormField control={form.control} name="thickness" render={({ field }) => (
+              <FormField control={form.control} name="thickness" render={({ field }) => (
                 <FormItem><FormLabel>Thickness</FormLabel><FormControl><Input type="string"  {...field} /></FormControl><FormMessage /></FormItem>
               )} />
-               <FormField control={form.control} name="width" render={({ field }) => (
+              <FormField control={form.control} name="width" render={({ field }) => (
                 <FormItem><FormLabel>Width</FormLabel><FormControl><Input type="string" {...field} /></FormControl><FormMessage /></FormItem>
               )} />
               <FormField control={form.control} name="quantity" render={({ field }) => (
@@ -112,10 +112,10 @@ export default function CreateOrderModal({ onSuccess }: { onSuccess: () => void 
               <FormField control={form.control} name="priority" render={({ field }) => (
                 <FormItem>
                   <FormLabel>Priority</FormLabel>
-                  <Select  onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl><SelectTrigger><SelectValue placeholder="Select priority" /></SelectTrigger></FormControl>
                     {/**dropdown positioning fixed */}
-                    <SelectContent   alignItemWithTrigger={false} className="bg-white text-slate-800 dark:text-white  dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-lg z-50">
+                    <SelectContent alignItemWithTrigger={false} className="bg-white text-slate-800 dark:text-white  dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-lg z-50">
                       {['Low', 'Medium', 'High', 'Urgent'].map(p => <SelectItem key={p} value={p}>{p}</SelectItem>)}
                     </SelectContent>
                   </Select>
@@ -129,7 +129,7 @@ export default function CreateOrderModal({ onSuccess }: { onSuccess: () => void 
             )} />
 
             {serverError && <div className="text-sm font-medium text-destructive">{serverError}</div>}
-            
+
             <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
               {form.formState.isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               Submit Order

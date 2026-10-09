@@ -79,6 +79,8 @@ export default function AIIngestionPage() {
       const orderPayload = {
         customer: selectedCustomerId,
         productName: parsedData.productName,
+        thickness: parsedData.thickness,
+        width: parsedData.width,
         // Fallback description length to pass Zod min(5) rule
         description: parsedData.notes?.length > 4 ? parsedData.notes : "AI Processed Order",
         quantity: parsedData.quantity,
@@ -139,15 +141,12 @@ export default function AIIngestionPage() {
           <CardContent className="space-y-4">
             <div className="space-y-1">
               <Label className="text-white font-semibold">Link to Verified Customer</Label>
-              <Select value={selectedCustomerId} onValueChange={(value)=>{
-                 if(value!==null){
-                  setSelectedCustomerId(value);
-                 }
-              }}>
+              <Select value={selectedCustomerId} onValueChange={(value) => setSelectedCustomerId(value ?? "")}
+              >
                 <SelectTrigger>
-                  <SelectValue placeholder={parsedData?.customerName || "Select verified customer..."} />
+                  <SelectValue placeholder={ "Select verified customer..."} >{customers.find((c)=> c._id===selectedCustomerId)?.companyName}</SelectValue>
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent  className="bg-white text-slate-800 dark:text-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-lg z-50" >
                   {customers.map(c => (
                     <SelectItem key={c._id} value={c._id}>{c.companyName}</SelectItem>
                   ))}
@@ -160,9 +159,29 @@ export default function AIIngestionPage() {
                 <Label>Product</Label>
                 <Input value={parsedData?.productName || ""} onChange={(e) => setParsedData({...parsedData, productName: e.target.value})} />
               </div>
+               <div className="space-y-1">
+                <Label>Thickness</Label>
+                <Input type="string" value={parsedData?.thickness || ""} onChange={(e) => setParsedData({...parsedData, thickness: (e.target.value)})} />
+              </div>
+               <div className="space-y-1">
+                <Label>Width</Label>
+                <Input type="string" value={parsedData?.width || ""} onChange={(e) => setParsedData({...parsedData, width: (e.target.value)})} />
+              </div>
               <div className="space-y-1">
                 <Label>Quantity</Label>
                 <Input type="number" value={parsedData?.quantity || ""} onChange={(e) => setParsedData({...parsedData, quantity: parseInt(e.target.value)})} />
+              </div>
+               <div className="space-y-1">
+                <Label>Price</Label>
+                <Input type="number" value={parsedData?.price || ""} onChange={(e) => setParsedData({...parsedData, price: (e.target.value)})} />
+              </div>
+               <div className="space-y-1">
+                <Label>Deadline</Label>
+                <Input type="date" value={parsedData?.deadline || ""} onChange={(e) => setParsedData({...parsedData, deadline: (e.target.value)})} />
+              </div>
+               <div className="space-y-1">
+                <Label>priority</Label>
+                <Input type="string" value={parsedData?.priority || ""} onChange={(e) => setParsedData({...parsedData, priority: (e.target.value)})} />
               </div>
             </div>
             
