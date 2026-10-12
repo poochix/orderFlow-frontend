@@ -211,7 +211,7 @@ export default function AIIngestionPage() {
                 value={selectedCustomerId}
                 onValueChange={(value) => setSelectedCustomerId(value ?? "")}
               >
-                <SelectTrigger>
+                <SelectTrigger className="w-full max-w-[200px]">
                   <SelectValue placeholder="Select verified customer...">
                     {customers.find(
                       (customer) => String(customer._id) === String(selectedCustomerId)
