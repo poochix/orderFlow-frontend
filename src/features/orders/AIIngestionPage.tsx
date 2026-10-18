@@ -73,6 +73,7 @@ export default function AIIngestionPage() {
 
       const data = response.data.data;
 
+      console.log(data)
       setParsedData(data);
 
       // Only attempt matching when the AI returns a company name.
@@ -136,6 +137,7 @@ export default function AIIngestionPage() {
         priority: parsedData.priority || "Medium",
         deadline: parsedData.deadline || new Date().toISOString(),
       };
+   
 
       await api.post("/orders/create", orderPayload);
 
@@ -187,20 +189,7 @@ export default function AIIngestionPage() {
             <CardDescription>Review and map the AI data before creation.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            {/* <div className="space-y-1">
-              <Label className="text-white font-semibold">Link to Verified Customer</Label>
-              <Select value={selectedCustomerId} onValueChange={(value) => setSelectedCustomerId(value ?? "")}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder={ "Select verified customer..."} > {parsedData?.companyName ?? parsedData.companyName : (customers.find((c)=> c._id===selectedCustomerId)?.companyName)}</SelectValue>
-                </SelectTrigger>
-                <SelectContent  className="bg-white text-slate-800 dark:text-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-lg z-50" >
-                  {customers.map(c => (
-                    <SelectItem key={c._id} value={c._id}>{c.companyName}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div> */}
+         
 
             <div className="space-y-1">
               <Label className="font-semibold">
@@ -234,23 +223,40 @@ export default function AIIngestionPage() {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1">
                 <Label>Product</Label>
-                <Input value={parsedData?.productName || ""} onChange={(e) => setParsedData({ ...parsedData, productName: e.target.value })} />
+                <Input value={parsedData?.productName || ""} onChange={(e) => setParsedData({
+                  ...parsedData,
+                  productName: e.target.value || null
+                })} />
               </div>
               <div className="space-y-1">
                 <Label>Thickness</Label>
-                <Input type="string" value={parsedData?.thickness || ""} onChange={(e) => setParsedData({ ...parsedData, thickness: (e.target.value) })} />
+                <Input type="string" value={parsedData?.thickness || ""} onChange={(e) => setParsedData({ ...parsedData, thickness: e.target.value || null, })} />
               </div>
               <div className="space-y-1">
                 <Label>Width</Label>
-                <Input type="string" value={parsedData?.width || ""} onChange={(e) => setParsedData({ ...parsedData, width: (e.target.value) })} />
+                <Input type="string" value={parsedData?.width || ""} onChange={(e) =>
+                  setParsedData({
+                    ...parsedData,
+                    width: e.target.value || null,
+                  })} />
               </div>
               <div className="space-y-1">
                 <Label>Quantity</Label>
-                <Input type="number" value={parsedData?.quantity || ""} onChange={(e) => setParsedData({ ...parsedData, quantity: parseInt(e.target.value) })} />
+                <Input type="number" value={parsedData?.quantity || ""} onChange={(e) => setParsedData({
+                  ...parsedData, quantity:
+                    e.target.value === ""
+                      ? null
+                      : Number(e.target.value),
+                })} />
               </div>
               <div className="space-y-1">
                 <Label>Price</Label>
-                <Input type="number" value={parsedData?.price || ""} onChange={(e) => setParsedData({ ...parsedData, price: (e.target.value) })} />
+                <Input type="number" value={parsedData?.price || ""} onChange={(e) => setParsedData({
+                  ...parsedData, price:
+                    e.target.value === ""
+                      ? null
+                      : Number(e.target.value),
+                })} />
               </div>
               <div className="space-y-1">
                 <Label>Deadline</Label>
